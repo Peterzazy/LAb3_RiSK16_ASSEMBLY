@@ -1,0 +1,19 @@
+// set of test vectors which could test the functionality and corner cases of the operator {<, >, ≤, ≥}, We target signed numbers in assembly for RISK16.
+// We need to do 5 tests : 
+//                        -Basic tests:(a=0,b=5)
+//                        -tests with equal values:(a=25,b=25)
+//                        -Tests with large values and boudary values:(a = 32767)
+//                        -Tests with negative values:(a=-5)
+//                        -note that we can import more values 
+
+
+
+// initialize registers
+MOVI 1, 0     // test case 1 a = 0
+MOVI 2, 0     // test case 1 b = 0
+MOVI 3, 32767 // test case 2 a = 32767 
+MOVI 4, 0     // test case 2 b = 0
+MOVI 5, 5     // test case 3 a = 5
+MOVI 6, -5    // test case 3 b = -5
+MOVI 7, 25    // test case 4a = 25, b = 25
+MOVI 1, 25    // test case 5a = 25, b = 0
