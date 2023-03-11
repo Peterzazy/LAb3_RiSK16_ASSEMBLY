@@ -1,0 +1,52 @@
+// using the set of test vectors, let's write the code for in RISK16 with 7 register and only the following instructions :
+// ADD,ADDI,NAND,LUI,BEQ,JALR,NOP,RESET,MOVI,HALT
+
+/ initialize registers
+MOVI 1, 0     // test case 1 a = 0
+MOVI 2, 0     // test case 1 b = 0
+MOVI 3, 32767 // test case 2 a = 32767
+MOVI 4, 0     // test case 2 b = 0
+MOVI 5, 5     // test case 3 a = 5
+MOVI 6, -5    // test case 3 b = -5
+MOVI 7, 25    // test case 4a = 25, b = 25
+MOVI 1, 25    // test case 5a = 25, b = 0
+
+// test <
+LUI 3, 1       // load 1 into the upper 16 bits of R3
+ADDI 4, 0, 0  // set R4 to 0
+ADD 4, 1, 4  // R4 = a
+ADD 5, 2, 0  // R5 = b
+NAND 6, 4, 5 // R6 = ~(a & b)
+ADDI 7, 0, 4  // set R7 to 4 (address of next instruction)
+BEQ 6, 0, 7  // branch to address 4 if a < b
+MOVI 1, 1      // incorrect result, a >= b
+HALT            // end program
+
+// test >
+LUI 3, 1       // load 1 into the upper 16 bits of R3
+ADDI 4, 0, 0  // set R4 to 0
+ADD 4, 3, 4  // R4 = a
+ADD 5, 4, 0  // R5 = b
+NAND 6, 4, 5 // R6 = ~(a & b)
+ADDI 7, 0, 4  // set R7 to 4 (address of next instruction)
+BEQ 6, 0, 7  // branch to address 4 if a > b
+MOVI 1, 1      // incorrect result, a <= b
+HALT            // end program
+
+// test <=
+LUI 3, 1       // load 1 into the upper 16 bits of R3
+ADDI 4, 0, 0  // set R4 to 0
+ADD 4, 5, 0  // R4 = b
+ADD 5, 1, 0  // R5 = a
+NAND 6, 4, 5 // R6 = ~(b & a)
+ADDI 7, 0, 4  // set R7 to 4 (address of next instruction)
+BEQ 6, 0, 7  // branch to address 4 if a <= b
+MOVI 1, 1      // incorrect result, a > b
+HALT            // end program
+
+// test >=
+LUI 3, 1       // load 1 into the upper 16 bits of R3
+ADDI 4, 0, 0  // set R4 to 0
+ADD 4, 5, 0  // R4 = b
+ADD 5, 1, 0  // R5 = a
+NAND 6, 4, 5 // R6
