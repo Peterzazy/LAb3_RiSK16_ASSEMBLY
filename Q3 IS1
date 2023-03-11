@@ -1,0 +1,24 @@
+// Write a program to multiply the unsigned content of reg1 and reg2 and write the result in reg3 and reg4, LSB in reg3.
+// Write the program using the Special IS[1] 17-bit instruction set.
+
+
+// multiply reg1 and reg2 and store the result in reg3 and reg4
+MOVI 3, 0      // initialize reg3 to 0
+MOVI 4, 0      // initialize reg4 to 0
+MOVI 5, 1      // initialize reg5 to 1 (used as a counter)
+
+LOOP:
+SHL 6, 2, 1    // shift the value in reg2 left by reg5 bits and store the result in reg6
+AND 6, 6, 1    // clear all but the least significant bit of reg6
+BEQ 6, 0, NEXT // if the least significant bit of reg6 is 0, go to NEXT
+ADD 3, 3, 1    // add the value in reg1 to reg3
+BG 5, 15, DONE // if the counter reaches 15, exit the loop
+
+NEXT:
+SHL 1, 1, 1    // double the value in reg1
+BG 5, 15, DONE // if the counter reaches 15, exit the loop
+ADDI 5, 5, 1   // increment the counter
+JALR LOOP      // jump back to LOOP
+
+DONE:
+HALT           // end the program
