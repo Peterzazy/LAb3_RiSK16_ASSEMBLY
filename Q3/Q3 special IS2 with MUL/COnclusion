@@ -1,0 +1,12 @@
+// This code is the optimization of the Q3 special IS1 
+
+
+LUI 3, 0        // Load 0 into upper 16 bits of R3
+MUL 4, 1, 2     // Multiply contents of R1 and R2, result in R4:R5
+SW 4, 0(3)      // Store the lower 16 bits of result in R3
+SW 5, 2(3)      // Store the upper 16 bits of result in R4
+
+//This code loads 0 into the upper 16 bits of R3,
+multiplies the contents of R1 and R2 using the MUL instruction, 
+and then stores the lower 16 bits of the result in R3 and the upper 16 bits in R4 using SW instructions. 
+This code is more efficient than the previous version as it only uses three instructions to perform the multiplication and storage of the result.
